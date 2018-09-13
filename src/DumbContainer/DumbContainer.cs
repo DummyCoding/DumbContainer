@@ -9,12 +9,16 @@ namespace DumbContainer
 
         public object Resolve(Type type)
         {
-            throw new NotImplementedException();
+            var objectTypeToCreate = _registrations[type];
+
+            return Activator.CreateInstance(objectTypeToCreate);
         }
 
         public T Resolve<T>()
         {
-            throw new NotImplementedException();
+            var objectTypeToCreate = typeof(T);
+
+            return (T)Resolve(objectTypeToCreate);
         }
 
         public void Register(Type serviceType, Type implementationType)
