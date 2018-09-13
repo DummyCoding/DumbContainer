@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace DumbContainer.Tests.Register
+namespace DumbContainer.Tests.Register.SimpleClass
 {
     public class RegisterByGeneric
     {

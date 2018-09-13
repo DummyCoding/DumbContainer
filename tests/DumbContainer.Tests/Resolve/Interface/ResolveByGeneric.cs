@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace DumbContainer.Tests.Resolve
+namespace DumbContainer.Tests.Resolve.Interface
 {
     public class ResolveByGeneric
     {
@@ -10,16 +10,21 @@ namespace DumbContainer.Tests.Resolve
         {
             var dumbContainer = new DumbContainer();
 
+            var interfaceType = typeof(ITestClass);
             var testClassType = typeof(TestClass);
-            dumbContainer.Register(testClassType, testClassType);
+            dumbContainer.Register(interfaceType, testClassType);
 
-            object resolve = dumbContainer.Resolve<TestClass>();
+            object resolve = dumbContainer.Resolve<ITestClass>();
 
             resolve.Should().NotBeNull();
             resolve.Should().BeOfType(testClassType);
         }
 
-        private class TestClass
+        private interface ITestClass
+        {
+        }
+
+        private class TestClass : ITestClass
         {
         }
     }

@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace DumbContainer.Tests.Register
+namespace DumbContainer.Tests.Register.Interface
 {
     public class RegisterByType
     {
@@ -11,14 +11,19 @@ namespace DumbContainer.Tests.Register
         {
             var dumbContainer = new DumbContainer();
 
+            var interfaceType = typeof(ITestClass);
             var testClassType = typeof(TestClass);
 
-            Action register = () => dumbContainer.Register(testClassType, testClassType);
+            Action register = () => dumbContainer.Register(interfaceType, testClassType);
 
             register.Should().NotThrow();
         }
 
-        private class TestClass
+        private interface ITestClass
+        {
+        }
+
+        private class TestClass : ITestClass
         {
         }
     }

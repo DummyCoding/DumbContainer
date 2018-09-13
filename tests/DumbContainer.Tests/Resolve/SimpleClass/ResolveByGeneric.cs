@@ -1,19 +1,19 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace DumbContainer.Tests.Resolve
+namespace DumbContainer.Tests.Resolve.SimpleClass
 {
-    public class ResolveByType
+    public class ResolveByGeneric
     {
         [Fact]
-        public void SimpleClass()
+        public void SimpleClassAsT()
         {
             var dumbContainer = new DumbContainer();
 
             var testClassType = typeof(TestClass);
             dumbContainer.Register(testClassType, testClassType);
 
-            object resolve = dumbContainer.Resolve(testClassType);
+            object resolve = dumbContainer.Resolve<TestClass>();
 
             resolve.Should().NotBeNull();
             resolve.Should().BeOfType(testClassType);
