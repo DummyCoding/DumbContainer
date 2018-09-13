@@ -4,10 +4,10 @@ namespace DumbContainer
 {
     public interface IDumbContainer
     {
-        object GetInstance(Type type);
-        T GetInstance<T>();
+        object Resolve(Type type);
+        T Resolve<T>();
 
-        void Register(Type service, Type implementation);
+        void Register(Type serviceType, Type implementationType);
         void Register<TService, TImplementation>();
     }
 }
