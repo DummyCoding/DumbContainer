@@ -2,9 +2,9 @@
 using FluentAssertions;
 using Xunit;
 
-namespace DumbContainer.Tests.Resolve.SimpleClass
+namespace DumbContainer.Tests.Resolve.NotRegistered
 {
-    public class NotRegistered
+    public class NotRegisteredSimpleClass
     {
         [Fact]
         public void SimpleClassAsT()
