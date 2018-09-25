@@ -20,7 +20,7 @@ namespace DumbContainer.Tests.Register.Interface
         {
         }
 
-        private class TestClass
+        private class TestClass : ITestClass
         {
         }
     }
