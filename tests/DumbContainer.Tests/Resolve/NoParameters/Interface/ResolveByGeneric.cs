@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 
-namespace DumbContainer.Tests.Resolve.Interface
+namespace DumbContainer.Tests.Resolve.NoParameters.Interface
 {
     public class ResolveByGeneric
     {

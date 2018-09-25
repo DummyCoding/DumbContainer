@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace DumbContainer
 {
@@ -9,12 +11,31 @@ namespace DumbContainer
 
         public object Resolve(Type type)
         {
-            if (_registrations.TryGetValue(type, out Type registeredType))
+            if (!_registrations.TryGetValue(type, out Type registeredType))
+            {
+                throw ExceptionThrower.ThrowTryToResolveNotRegisteredTypeException(type);    
+            }
+
+            ConstructorInfo[] constructorInfos = registeredType.GetConstructors();
+
+            if (constructorInfos.Length > 1)
+            {
+                throw ExceptionThrower.ThrowTooManyPublicConstructorsOnType(type);
+            }
+
+            var parameterInfos = constructorInfos[0].GetParameters();
+
+            if (parameterInfos.Length == 0)
             {
                 return Activator.CreateInstance(registeredType);
             }
 
-            throw ExceptionThrower.ThrowTryToResolveNotRegisteredTypeException(type);
+            object[] createdParameters = 
+                parameterInfos
+                    .Select(p => Resolve(p.ParameterType))
+                    .ToArray();
+
+            return Activator.CreateInstance(registeredType, createdParameters);
         }
 
         public T Resolve<T>()
