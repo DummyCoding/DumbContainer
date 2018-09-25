@@ -9,9 +9,12 @@ namespace DumbContainer
 
         public object Resolve(Type type)
         {
-            var objectTypeToCreate = _registrations[type];
+            if (_registrations.TryGetValue(type, out Type registeredType))
+            {
+                return Activator.CreateInstance(registeredType);
+            }
 
-            return Activator.CreateInstance(objectTypeToCreate);
+            throw ExceptionThrower.ThrowTryToResolveNotRegisteredTypeException(type);
         }
 
         public T Resolve<T>()
