@@ -26,7 +26,7 @@ namespace DumbContainer
             _registrations[serviceType] = implementationType;
         }
 
-        public void Register<TService, TImplementation>()
+        public void Register<TService, TImplementation>() where TImplementation : TService
         {
             var serviceType = typeof(TService);
             var implementationType = typeof(TImplementation);
